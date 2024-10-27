@@ -1,0 +1,344 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Number Game</title>
+    <style>
+        * {
+            max-width: 100%;
+            max-height: 100%;
+        }
+        body {
+            overflow: hidden;
+            background-color: #1c1c1c;
+            color: white;
+            font-family: Arial, sans-serif;
+            text-align: center;
+        }
+        #game {
+            margin: 20px auto;
+            width: 500px;
+            padding: 20px;
+            border: 3px solid red;
+            max-height: 700px;
+            overflow: scroll;
+        }
+        .generator {
+            margin: 10px 0;
+            border: 2px solid red;
+            padding: 10px;
+        }
+        .sidebarcontain {
+            margin: 2px 0;
+            border: 2px solid red;
+            padding: 1px;
+        }
+        button {
+            background-color: #ff9999;
+            border: none;
+            padding: 10px;
+            cursor: pointer;
+            font-size: 16px;
+            color: black;
+        }
+        .sidebutton {
+            background-color: #ff9999;
+            border: none;
+            padding: 3px;
+            cursor: pointer;
+            font-size: 16px;
+        }
+        button:disabled {
+            background-color: #555;
+            cursor: not-allowed;
+        }
+        .hidden {
+            display: none;
+        }
+        #sidebar {
+    position: fixed;
+    top: 80px;
+    right: 265px; /* Adjusted for placement next to the menu */
+    width: 400px;
+    padding: 10px;
+    background-color: #2c2c2c;
+    border-right: 2px solid red; /* Changed to left border */
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+}
+
+    #toggleBtn {
+        position: fixed;
+        top: 20px;
+        right: 0;
+        background-color: #444;
+        color: white;
+        cursor: pointer;
+        padding: 5px;
+        font-size: 18px;
+    }
+    </style>
+    <script>
+        let numb = ["thousand","million","billion","trillion","quadrillion","quintillion","sextillion","septillion","octillion","nonillion","decillion","undecillion","duodecillion","tredecillion","quattordecillion","quindecillion","sexdecillion","septendecillion","octodecillion","novemdecillion","vigintillion","unvigintillion","duovigintillion","trevigintillion","quattorvigintillion","quinvigintillion","sexvigintillion","septenvigintillion","octovigintillion","novemvigintillion","trigintillion","untrigintillion","duotrigintillion","tretrigintillion","quattortrigintillion","quintrigintillion","sextrigintillion","septentrigintillion","octotrigintillion","novemtrigintillion","quadragintillion","unquadragintillion","duoquadragintillion","trequadragintillion","quattorquadragintillion","quinquadragintillion","sexquadragintillion","septenquadragintillion","octoquadragintillion","novemquadragintillion","quinquagintillion","unquinquagintillion","duoquinquagintillion","trequinquagintillion","quattorquinquagintillion","quinquinquagintillion","sexquinquagintillion","septenquinquagintillion","octoquinquagintillion","novemquinquagintillion","sexagintillion","unsexagintillion","duosexagintillion","tresexagintillion","quattorsexagintillion","quinsexagintillion","sexsexagintillion","septensexagintillion","octosexagintillion","novemsexagintillion","septuagintillion","unseptuagintillion","duoseptuagintillion","treseptuagintillion","quattorseptuagintillion","quinseptuagintillion","sexseptuagintillion","septenseptuagintillion","octoseptuagintillion","novemseptuagintillion","octogintillion","unoctogintillion","duooctogintillion","treoctogintillion","quattoroctogintillion","quinoctogintillion","sexoctogintillion","septenoctogintillion","octooctogintillion","novemoctogintillion","nonagintillion","unnonagintillion","duononagintillion","trenonagintillion","quattornonagintillion","quinnonagintillion","sexnonagintillion","septennonagintillion","octononagintillion","novemnonagintillion","centillion","uncentillion","duocentillion","trecentillion","quattorcentillion"]
+        function shorten(number) {
+            let abrvIndex = Math.floor(Math.log10(number) / 3);  
+            let abrv = numb[abrvIndex -1];
+
+            if (abrv) {
+                let shortNum = number / (1000 ** abrvIndex); 
+                let intNum = String(shortNum).substring(0, 5);  
+                return intNum + " " + abrv;
+            } else {
+                return number.toString();  
+            }
+        }
+       function compress(num,) {
+            let output = 0
+            if (num < 1000000) {
+                output = num
+            } else {
+                output = shorten(num)
+            }
+            
+            return output
+        }
+        
+    </script>
+</head>
+<body>
+    <h1 id="pointsDisplay">hello there</h1>
+<div id="game">
+   
+
+    <div class="generator" id="gen1">
+        <h2>Generator 1</h2>
+        <button onclick="buyGenerator(1)" id="buyGen1">Purchase: 5</button>
+        <p>Amount: <span id="gen1Count">1</span></p>
+    </div>
+
+    <div class="generator hidden" id="gen2">
+        <h2>Generator 2</h2>
+        <button onclick="buyGenerator(2)" id="buyGen2" disabled>Purchase: </button>
+        <p>Amount: <span id="gen2Count">0</span></p>
+    </div>
+
+    <div class="generator hidden" id="gen3">
+        <h2>Generator 3</h2>
+        <button onclick="buyGenerator(3)" id="buyGen3" disabled>Purchase:</button>
+        <p>Amount: <span id="gen3Count">0</span></p>
+    </div>
+
+    <div class="generator hidden" id="gen4">
+        <h2>Generator 4</h2>
+        <button onclick="buyGenerator(4)" id="buyGen4" disabled>Purchase:</button>
+        <p>Amount: <span id="gen4Count">0</span></p>
+    </div>
+    <div class="generator hidden" id="gen5">
+        <h2>Generator 5</h2>
+        <button onclick="buyGenerator(5)" id="buyGen5" disabled>Purchase:</button>
+        <p>Amount: <span id="gen5Count">0</span></p>
+    </div>
+    
+    <div class="generator hidden" id="gen6">
+        <h2>Generator 6</h2>
+        <button onclick="buyGenerator(6)" id="buyGen6" disabled>Purchase:</button>
+        <p>Amount: <span id="gen6Count">0</span></p>
+    </div>
+    <div class="generator hidden" id="gen7">
+        <h2>Generator 7</h2>
+        <button onclick="buyGenerator(7)" id="buyGen7" disabled>Purchase:</button>
+        <p>Amount: <span id="gen7Count">0</span></p>
+    </div>
+</div>
+<div id="sidebar" style="display: none;">
+    <div class="sidebarcontain" >
+        <h3>Tickspeed</h2>
+        <button class="sidebutton" id="tickspeedBtn">Increase tickspeed</button>
+        <p>Time: <span id="tickspeedC">1</span></p>
+    </div>
+    <div class="sidebarcontain" >
+        <h3>Doublers</h2>
+        <button class="sidebutton" id="doublerBtn">Double production</button>
+        <p>x <span id="doublersC">1</span></p>
+    </div>
+</div>
+
+<script>
+
+    let points = 5;
+    let gen1Count = 0;
+    let gen2Count = 0;
+    let gen3Count = 0;
+    let gen4Count = 0;
+    let gen5Count = 0;
+    let gen6Count = 0;  
+    let gen7Count = 0;  
+
+    const gen1Price = 5;
+    let gen2Price = 300;
+    let gen3Price = 500000;
+    let gen4Price = 10000000;
+    let gen5Price = 100000000000;
+    let gen6Price = 1.5e15;
+    let gen7Price = 1.5e20;
+
+    let updateInterval;
+    let tickspeedCost = Math.pow(10, 15);
+    let msPerUpdate = 1;
+
+    let doublers = 1;
+    let doublercost = 1e18
+
+    function updateDisplay() {
+        document.getElementById("pointsDisplay").innerText = compress(points) + " Points";
+        document.getElementById("gen1Count").innerText = compress(gen1Count);
+        document.getElementById("gen2Count").innerText = compress(gen2Count);
+        document.getElementById("gen3Count").innerText = compress(gen3Count);
+        document.getElementById("gen4Count").innerText = compress(gen4Count);
+        document.getElementById("gen5Count").innerText = compress(gen5Count);
+        document.getElementById("gen6Count").innerText = compress(gen6Count);
+        document.getElementById("gen7Count").innerText = compress(gen7Count);
+        if (points >= 1e12) {
+            document.getElementById("sidebar").style.display = "flex";
+        }
+        if (gen6Count >= 80) {
+            document.getElementById("gen7").classList.remove('hidden');
+            document.getElementById("buyGen7").disabled = false;
+        }
+        if (gen5Count >= 50) {
+            document.getElementById("gen6").classList.remove('hidden');
+            document.getElementById("buyGen6").disabled = false;
+        }
+        if (gen4Count >= 50) {
+            document.getElementById("gen5").classList.remove('hidden');
+            document.getElementById("buyGen5").disabled = false;
+        }
+        if (gen3Count >= 50) {
+            document.getElementById("gen4").classList.remove('hidden');
+            document.getElementById("buyGen4").disabled = false;
+        }
+        if (gen2Count >= 25) {
+            document.getElementById("gen3").classList.remove('hidden');
+            document.getElementById("buyGen3").disabled = false;
+        }
+        if (gen1Count >= 25) {
+            document.getElementById("gen2").classList.remove('hidden');
+            document.getElementById("buyGen2").disabled = false;
+        }
+        document.getElementById("doublerBtn").innerText = "Double production: " + compress(doublercost)
+        document.getElementById("tickspeedBtn").innerText = "Increase speed: " + compress(tickspeedCost)
+        document.getElementById("buyGen2").innerText = "Purchase: " + compress(gen2Price);
+        document.getElementById("buyGen3").innerText = "Purchase: " + compress(gen3Price);
+        document.getElementById("buyGen4").innerText = "Purchase: " + compress(gen4Price);
+        document.getElementById("buyGen5").innerText = "Purchase: " + compress(gen5Price);
+        document.getElementById("buyGen6").innerText = "Purchase: " + compress(gen6Price);
+        document.getElementById("buyGen7").innerText = "Purchase: " + compress(gen7Price);
+    }
+    updateDisplay();
+    function buyGenerator(generator) {
+        if (generator === 1 && points >= gen1Price) {
+            points -= gen1Price;
+            gen1Count++;
+            if (gen1Count >= 25) {
+                document.getElementById("buyGen1").remove();
+            }
+        } else if (generator === 2 && points >= gen2Price && gen1Count >= 25) {
+            points -= gen2Price;
+            gen2Count++;
+            gen2Price = Math.floor(gen2Price * 1.10);
+            document.getElementById("buyGen2").innerText = "Purchase: " + compress(gen2Price);
+            if (gen2Count >= 25) {
+                document.getElementById("buyGen2").remove();
+            }
+        } else if (generator === 3 && points >= gen3Price && gen2Count >= 25) {
+            points -= gen3Price;
+            gen3Count++;
+            gen3Price = Math.floor(gen3Price * 1.10);
+            document.getElementById("buyGen3").innerText = "Purchase: " + compress(gen3Price);
+            if (gen3Count >= 50) {
+                document.getElementById("buyGen3").remove();
+            }
+        } else if (generator === 4 && points >= gen4Price && gen3Count >= 50) {
+            points -= gen4Price;
+            gen4Count++;
+            gen4Price = Math.floor(gen4Price * 1.10);
+            document.getElementById("buyGen4").innerText = "Purchase: " + compress(gen4Price);
+            if (gen4Count >= 50) {
+            document.getElementById("buyGen4").remove();
+        }
+        } else if (generator === 5 && points >= gen5Price && gen4Count >= 50) {
+            points -= gen5Price;
+            gen5Count++;
+            gen5Price = Math.floor(gen5Price * 1.10);
+            document.getElementById("buyGen5").innerText = "Purchase: " + compress(gen5Price);
+            if (gen5Count >= 50) {
+                document.getElementById("buyGen5").remove();
+        }
+        } else if (generator === 6 && points >= gen6Price && gen5Count >= 50) {
+            points -= gen6Price;
+            gen6Count++;
+            gen6Price = Math.floor(gen6Price * 1.10);
+            document.getElementById("buyGen6").innerText = "Purchase: " + compress(gen6Price);
+            if (gen6Count >= 80) {
+                document.getElementById("buyGen6").remove();
+        }
+        }else if (generator === 7 && points >= gen7Price && gen6Count >= 80) {
+            points -= gen6Price;
+            gen7Count++;
+            gen7Price = Math.floor(gen7Price * 1.10);
+            document.getElementById("buyGen7").innerText = "Purchase: " + compress(gen7Price);
+         
+        }
+        updateDisplay();
+    }
+    
+
+document.getElementById("tickspeedBtn").addEventListener("click", () => {
+    if (points >= tickspeedCost) {
+        points -= tickspeedCost;
+        msPerUpdate = Math.max(msPerUpdate - 100, 25);
+        tickspeedCost *= 10;
+        document.getElementById("tickspeedC").innerText = msPerUpdate / 1000;
+        document.getElementById("tickspeedBtn").innerText = "Purchase: " + compress(tickspeedCost)
+        if (msPerUpdate <= 50) {
+            document.getElementById("tickspeedBtn").remove();
+        }
+       
+        updateDisplay();
+        clearInterval(updateInterval);
+        updateInterval = setInterval(() => {tick() }, msPerUpdate);
+       
+    }
+});
+document.getElementById("doublerBtn").addEventListener("click" , () => {
+    if (points >= doublercost) {
+        points - doublercost
+        doublercost *= 1000
+        doublers *= 2
+        document.getElementById("doublersC").innerText = compress(doublers);
+        document.getElementById("doublerBtn").innerText = "Double production: " + compress(doublercost)
+        updateDisplay();
+    }
+});
+
+function tick() {
+        points += gen1Count * doublers;
+        gen1Count += gen2Count * doublers;
+        gen2Count += gen3Count * doublers;
+        gen3Count += gen4Count * doublers;
+        gen4Count += gen5Count * doublers;
+        gen5Count += gen6Count * doublers;
+        gen6Count += gen7Count * doublers;
+        if (msPerUpdate < 1) {
+                msPerUpdate = 1
+        }
+        updateDisplay();
+}
+
+updateInterval = setInterval(() => {tick() }, msPerUpdate);
+</script>
+
+</body>
+</html>
